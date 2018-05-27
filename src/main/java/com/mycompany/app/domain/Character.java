@@ -6,8 +6,8 @@ public class Character {
 	int level = 1;
 	int energy = 10;
 	int life = 5;
-	int x;
-	int y;
+	int x = 0;
+	int y = 0;
 
 	public int getExperience() {
 		return experience;
@@ -32,7 +32,7 @@ public class Character {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public int getLife() {
 		return life;
 	}

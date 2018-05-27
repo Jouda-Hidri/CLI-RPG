@@ -14,6 +14,8 @@ public class App {
 	public static void main(String[] args) {
 		PlayerService service = new PlayerService();
 		EnemyService enemyService = new EnemyService();
+		int exitX = 4;
+		int exitY = 2;
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -25,8 +27,7 @@ public class App {
 			System.out.print("You can now start exploring. (w: up - s: down - a: left - d: right)");
 			// we create also the enemies and then we start the game
 			enemyService.create();
-			int i = 5;
-			while (character.getLife() > 0) {
+			while (character.getX() != exitX || character.getY() != exitY) {
 				String direction = scanner.next();
 				int x = 0;
 				int y = 0;
@@ -44,7 +45,6 @@ public class App {
 				}
 				service.move(x, y);
 				enemyService.move();
-				character.setLife(--i); // TODO remove after test
 			}
 
 		} else {

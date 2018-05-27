@@ -8,8 +8,6 @@ public class Enemy {
 	// another class)
 	int directionX = 1;
 	int directionY = 0;
-	int maxX = 3;
-	int maxY = 3;
 
 	public Enemy() {
 
@@ -52,22 +50,6 @@ public class Enemy {
 
 	public void setDirectionY(int directionY) {
 		this.directionY = directionY;
-	}
-
-	public int getMaxX() {
-		return maxX;
-	}
-
-	public void setMaxX(int maxX) {
-		this.maxX = maxX;
-	}
-
-	public int getMaxY() {
-		return maxY;
-	}
-
-	public void setMaxY(int maxY) {
-		this.maxY = maxY;
 	}
 
 	public void moveX() {
