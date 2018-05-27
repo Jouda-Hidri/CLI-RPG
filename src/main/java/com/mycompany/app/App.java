@@ -2,8 +2,9 @@ package com.mycompany.app;
 
 import java.util.Scanner;
 
-import com.mycompany.app.service.PlayerService;
 import com.mycompany.app.domain.Character;
+import com.mycompany.app.service.EnemyService;
+import com.mycompany.app.service.PlayerService;
 
 /**
  * role payling game
@@ -12,6 +13,7 @@ import com.mycompany.app.domain.Character;
 public class App {
 	public static void main(String[] args) {
 		PlayerService service = new PlayerService();
+		EnemyService enemyService = new EnemyService();
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -20,30 +22,33 @@ public class App {
 		String create = scanner.next();
 		if (create.equals("Y")) {
 			Character character = service.create();
-			System.out.print("You can know start exploring. (w or z:up - s:down - a or q:left - d:right)");
+			System.out.print("You can now start exploring. (w: up - s: down - a: left - d: right)");
+			// we create also the enemies and then we start the game
+			enemyService.create();
 			int i = 5;
 			while (character.getLife() > 0) {
 				String direction = scanner.next();
 				int x = 0;
 				int y = 0;
-				if (direction.equals("a") || direction.equals("q") ) {
+				if (direction.equals("a")) {
 					x -= 1;
 				}
 				if (direction.equals("d")) {
 					x += 1;
 				}
-				if (direction.equals("w") || direction.equals("z")) {
+				if (direction.equals("w")) {
 					y += 1;
 				}
 				if (direction.equals("s")) {
 					y -= 1;
 				}
-				service.explore(x, y);
-				character.setLife(--i);
+				service.move(x, y);
+				enemyService.move();
+				character.setLife(--i); // TODO remove after test
 			}
 
 		} else {
-			// TODO leave the game?
+			// TODO ask the user of they want to leave the game?
 		}
 	}
 

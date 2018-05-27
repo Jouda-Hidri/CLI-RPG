@@ -13,13 +13,12 @@ public class PlayerService {
 		return character;
 	}
 
-	public void explore(int x, int y) {
+	public void move(int x, int y) {
 		if(character == null) {
 			System.out.println("You do not have any character");
 		}else {
 			int x2 = character.getX() + x;
 			int y2 = character.getY() + y;
-			
 			character.setX(x2);
 			character.setY(y2);
 			System.out.println("Character status: "+character);

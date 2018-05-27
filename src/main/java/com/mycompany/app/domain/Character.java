@@ -3,6 +3,8 @@ package com.mycompany.app.domain;
 public class Character {
 
 	int experience;
+	int level = 1;
+	int energy = 10;
 	int life = 5;
 	int x;
 	int y;
