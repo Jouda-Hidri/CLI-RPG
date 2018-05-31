@@ -1,4 +1,3 @@
-com/mycompany/app/domain/Game.class
 com/mycompany/app/App.class
 com/mycompany/app/domain/Character.class
 com/mycompany/app/service/PlayerService.class

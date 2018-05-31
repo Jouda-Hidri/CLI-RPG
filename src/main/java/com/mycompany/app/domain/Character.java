@@ -1,11 +1,17 @@
 package com.mycompany.app.domain;
 
-public class Character {
+import java.io.Serializable;
 
-	int experience;
+public class Character implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	int experience = 0;
 	int level = 1;
-	int energy = 10;
-	int life = 5;
+	int health = 9;
+	int life = 3;
 	int x = 0;
 	int y = 0;
 
@@ -41,8 +47,27 @@ public class Character {
 		this.life = life;
 	}
 
+	public void gainExperience() {
+		experience++;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public void reduceHealth() {
+		if (health > 0) {
+			health--;
+		}
+		// TODO else die
+	}
+
 	@Override
 	public String toString() {
-		return "(" + x + "," + y + ") - " + experience;
+		return "position (" + x + "," + y + ") - experience : " + experience + " - health : " + health;
 	}
 }
