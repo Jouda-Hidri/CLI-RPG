@@ -1,6 +1,8 @@
-/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/service/EnemyService.java
+/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/gamelogic/impl/EnemiesMotion.java
 /Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/domain/Enemy.java
+/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/gamelogic/PlayerMotion.java
 /Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/App.java
-/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/domain/persistence/Game.java
-/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/service/PlayerService.java
+/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/domain/GameMap.java
+/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/gamelogic/impl/CharacterMotion.java
 /Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/domain/Character.java
+/Users/joudahidri/Documents/auto1/my-app/src/main/java/com/mycompany/app/domain/persistence/GamePersistence.java

@@ -7,11 +7,11 @@ import java.io.ObjectOutputStream;
 
 import com.mycompany.app.domain.Character;
 
-public class Game {
+public class GamePersistence {
 
-	String CHARACTER_FILE_PATH = "character.md";
+	private static String CHARACTER_FILE_PATH = "character.md";
 
-	public void save(Character character) {
+	public static void save(Character character) {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {
@@ -24,7 +24,7 @@ public class Game {
 		}
 	}
 
-	public Character resume() {
+	public static Character resume() {
 		try {
 			FileInputStream fis = new FileInputStream(CHARACTER_FILE_PATH);
 			ObjectInputStream in = new ObjectInputStream(fis);

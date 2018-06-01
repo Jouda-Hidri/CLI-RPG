@@ -4,24 +4,13 @@ import java.io.Serializable;
 
 public class Character implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	int experience = 0;
-	int level = 1;
-	int health = 9;
-	int life = 3;
 	int x = 0;
 	int y = 0;
-
-	public int getExperience() {
-		return experience;
-	}
-
-	public void setExperience(int experience) {
-		this.experience = experience;
-	}
+	int directionX = 0;
+	int directionY = 0;
+	int health = 9;
+	int experience = 0;
 
 	public int getX() {
 		return x;
@@ -39,16 +28,20 @@ public class Character implements Serializable {
 		this.y = y;
 	}
 
-	public int getLife() {
-		return life;
+	public int getDirectionX() {
+		return directionX;
 	}
 
-	public void setLife(int life) {
-		this.life = life;
+	public void setDirectionX(int directionX) {
+		this.directionX = directionX;
 	}
 
-	public void gainExperience() {
-		experience++;
+	public int getDirectionY() {
+		return directionY;
+	}
+
+	public void setDirectionY(int directionY) {
+		this.directionY = directionY;
 	}
 
 	public int getHealth() {
@@ -59,11 +52,12 @@ public class Character implements Serializable {
 		this.health = health;
 	}
 
-	public void reduceHealth() {
-		if (health > 0) {
-			health--;
-		}
-		// TODO else die
+	public int getExperience() {
+		return experience;
+	}
+
+	public void setExperience(int experience) {
+		this.experience = experience;
 	}
 
 	@Override
