@@ -15,6 +15,10 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 		return enemiesList;
 	}
 
+	public void setEnemiesList(List<Enemy> enemiesList) {
+		this.enemiesList = enemiesList;
+	}
+
 	@Override
 	public void create() {
 		if (enemiesList != null) {
@@ -39,6 +43,7 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 			if (enemy.getHealth() <= 0) {
 				continue;
 			}
+
 			int x2 = enemy.getX() + enemy.getDirectionX();
 			int y2 = enemy.getY() + enemy.getDirectionY();
 
@@ -52,6 +57,7 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 
 			enemy.setDirectionX(directionX2);
 			enemy.setDirectionY(directionY2);
+
 			System.out.println("Enemy: " + enemy);
 		}
 	}
