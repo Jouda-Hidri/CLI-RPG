@@ -1,8 +1,8 @@
-package com.mycompany.app.gamelogic.impl;
+package com.galaxy.rpg.gamelogic.impl;
 
-import com.mycompany.app.domain.Character;
-import com.mycompany.app.domain.Enemy;
-import com.mycompany.app.gamelogic.PlayerMotion;
+import com.galaxy.rpg.domain.Character;
+import com.galaxy.rpg.domain.Enemy;
+import com.galaxy.rpg.gamelogic.PlayerMotion;
 
 public class CharacterMotion implements PlayerMotion<Enemy> {
 
@@ -23,14 +23,11 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 
 	@Override
 	public void move() {
-		if (character == null) {
-			System.out.println("You do not have any character");
-		} else {
+		if (character != null) {
 			int x2 = character.getX() + character.getDirectionX();
 			int y2 = character.getY() + character.getDirectionY();
 			character.setX(x2);
 			character.setY(y2);
-			System.out.println("You: " + character);
 		}
 	}
 
@@ -42,6 +39,7 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 				System.out.println("They died");
 				gainExperience();
 			}
+			System.out.println("They: " + attackingEnemy);
 		}
 	}
 
@@ -50,7 +48,7 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 		int health = enemy.getHealth();
 		health--;
 		enemy.setHealth(health);
-		System.out.println("They lost health: " + enemy.getHealth());
+		System.out.println("They lost 1 point of health!");
 	}
 
 	public void gainExperience() {

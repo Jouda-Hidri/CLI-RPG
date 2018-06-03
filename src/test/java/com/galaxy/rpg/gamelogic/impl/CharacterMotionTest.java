@@ -1,11 +1,12 @@
-package com.mycompany.app.gamelogic.impl;
+package com.galaxy.rpg.gamelogic.impl;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.mycompany.app.domain.Character;
-import com.mycompany.app.domain.Enemy;
+import com.galaxy.rpg.domain.Character;
+import com.galaxy.rpg.domain.Enemy;
+import com.galaxy.rpg.gamelogic.impl.CharacterMotion;
 
 public class CharacterMotionTest {
 
@@ -25,7 +26,6 @@ public class CharacterMotionTest {
 
 		assertEquals(1, result.getX());
 		assertEquals(0, result.getY());
-
 	}
 
 	@Test

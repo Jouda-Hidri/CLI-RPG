@@ -1,4 +1,4 @@
-package com.mycompany.app.domain;
+package com.galaxy.rpg.domain;
 
 import java.io.Serializable;
 

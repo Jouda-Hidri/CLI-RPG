@@ -1,4 +1,4 @@
-package com.mycompany.app.domain.persistence;
+package com.galaxy.rpg.domain.persistence;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -6,26 +6,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-import com.mycompany.app.domain.Character;
-import com.mycompany.app.domain.Enemy;
+import com.galaxy.rpg.domain.Character;
+import com.galaxy.rpg.domain.Enemy;
 
 public class GamePersistence {
 
-	private static String CHARACTER_FILE_PATH = "character.md";
-	private static String ENEMIES_FILE_PATH = "enemies.md";
-	private static String TOPIC_FILE_PATH = "topic.md";
+	private static String CHARACTER_FILE_PATH = "character.sav";
+	private static String ENEMIES_FILE_PATH = "enemies.sav";
+	private static String STORYLINE_ID_FILE_PATH = "storyline_id.sav";
 
-	public static void save(int topicId, Character character, List<Enemy> enemiesList) {
-		save(topicId);
+	public static void save(int storyLineId, Character character, List<Enemy> enemiesList) {
+		save(storyLineId);
 		save(character);
 		save(enemiesList);
 	}
 
-	public static void save(int topicId) {
+	public static void save(int storyLineId) {
 		try {
-			FileOutputStream out = new FileOutputStream(TOPIC_FILE_PATH);
+			FileOutputStream out = new FileOutputStream(STORYLINE_ID_FILE_PATH);
 			ObjectOutputStream oos = new ObjectOutputStream(out);
-			oos.writeObject(topicId);
+			oos.writeObject(storyLineId);
 			oos.close();
 		} catch (Exception e) {
 		}
@@ -53,16 +53,16 @@ public class GamePersistence {
 		}
 	}
 
-	public static int getTopic() {
-		int topic = 0;
+	public static int getStorylineId() {
+		int storylineId = 0;
 		try {
-			FileInputStream in = new FileInputStream(TOPIC_FILE_PATH);
+			FileInputStream in = new FileInputStream(STORYLINE_ID_FILE_PATH);
 			ObjectInputStream ois = new ObjectInputStream(in);
-			topic = (Integer) (ois.readObject());
+			storylineId = (Integer) (ois.readObject());
 			in.close();
 		} catch (Exception e) {
 		}
-		return topic;
+		return storylineId;
 	}
 
 	public static Character loadCharacter() {
@@ -73,7 +73,6 @@ public class GamePersistence {
 			in.close();
 			return character;
 		} catch (Exception e) {
-
 		}
 		return null;
 	}

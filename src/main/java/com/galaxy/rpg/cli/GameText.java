@@ -1,4 +1,4 @@
-package com.mycompany.app.cli;
+package com.galaxy.rpg.cli;
 
 import java.io.Serializable;
 
@@ -11,41 +11,32 @@ public class GameText implements Serializable {
 
 	String introMessage;
 	String winMessage;
-	String looseMessage;
+	String loseMessage;
 	String enemy;
 	String target;
 
 	public GameText() {
 		introMessage = new String("Start exploring the map");
 		winMessage = new String("YOU WON!!!");
-		looseMessage = new String("Game over");
+		loseMessage = new String("Game over");
 		enemy = new String("Enemy");
 		target = new String("Target");
 	}
 
-	public GameText(String introMessage, String winMessage, String looseMessage, String enemy, String target) {
-		this.introMessage = introMessage;
-		this.winMessage = winMessage;
-		this.looseMessage = looseMessage;
-		this.enemy = enemy;
-		this.target = target;
-
-	}
-
-	public GameText(int topic) {
-		if (topic == 1) {
+	public GameText(int storylineId) {
+		if (storylineId == 1) {
 			introMessage = new String(
 					" Hey Dath Vader! \n We found out where the rebels are hiding! \n You should go to the Hoth ... ");
 			winMessage = new String("You reached the Hoth! \n YOU WON!!!");
-			looseMessage = new String("Darth Vader died! \n GAME OVER!");
+			loseMessage = new String("Darth Vader died! \n GAME OVER!");
 			enemy = new String("Rebel");
 			target = new String("Hoth");
 		}
-		if (topic == 2) {
+		if (storylineId == 2) {
 			introMessage = new String(
 					" Hey Luke! \n Your sister needs your help! \n You should go to her! \n Be careful on the way, there is a lot of TIE fighters ... ");
 			winMessage = new String("You saved Leia! \n YOU WON!!!");
-			looseMessage = new String("Luke died! \n GAME OVER!");
+			loseMessage = new String("Luke died! \n GAME OVER!");
 			enemy = new String("TIE fighter");
 			target = new String("Leia");
 		}
@@ -67,12 +58,12 @@ public class GameText implements Serializable {
 		this.winMessage = winMessage;
 	}
 
-	public String getLooseMessage() {
-		return looseMessage;
+	public String getLoseMessage() {
+		return loseMessage;
 	}
 
-	public void setLooseMessage(String looseMessage) {
-		this.looseMessage = looseMessage;
+	public void setLoseMessage(String loseMessage) {
+		this.loseMessage = loseMessage;
 	}
 
 	public String getEnemy() {

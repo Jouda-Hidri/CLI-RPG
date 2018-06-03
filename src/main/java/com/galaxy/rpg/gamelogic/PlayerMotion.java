@@ -1,4 +1,4 @@
-package com.mycompany.app.gamelogic;
+package com.galaxy.rpg.gamelogic;
 
 public interface PlayerMotion<T> {
 

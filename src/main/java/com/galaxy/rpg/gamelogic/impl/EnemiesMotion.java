@@ -1,11 +1,11 @@
-package com.mycompany.app.gamelogic.impl;
+package com.galaxy.rpg.gamelogic.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mycompany.app.domain.Character;
-import com.mycompany.app.domain.Enemy;
-import com.mycompany.app.gamelogic.PlayerMotion;
+import com.galaxy.rpg.domain.Character;
+import com.galaxy.rpg.domain.Enemy;
+import com.galaxy.rpg.gamelogic.PlayerMotion;
 
 public class EnemiesMotion implements PlayerMotion<Character> {
 
@@ -38,32 +38,30 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 	 */
 	@Override
 	public void move() {
-		for (Enemy enemy : enemiesList) {
-			if (enemy.getHealth() <= 0) {
-				continue;
-			}
+		enemiesList.stream()//
+				.filter(e -> e.getHealth() > 0)//
+				.forEach(e -> {
+					int x2 = e.getX() + e.getDirectionX();
+					int y2 = e.getY() + e.getDirectionY();
 
-			int x2 = enemy.getX() + enemy.getDirectionX();
-			int y2 = enemy.getY() + enemy.getDirectionY();
+					// It is also possible to make the enemies move the random way or maybe create a
+					// small AI in way they move to the character
+					int directionX2 = -e.getDirectionX();
+					int directionY2 = -e.getDirectionY();
 
-			// It is also possible to make the enemies move the random way or maybe create a
-			// small AI in way they move to the character
-			int directionX2 = -enemy.getDirectionX();
-			int directionY2 = -enemy.getDirectionY();
+					e.setX(x2);
+					e.setY(y2);
 
-			enemy.setX(x2);
-			enemy.setY(y2);
-
-			enemy.setDirectionX(directionX2);
-			enemy.setDirectionY(directionY2);
-
-			System.out.println("> " + enemy);
-		}
+					e.setDirectionX(directionX2);
+					e.setDirectionY(directionY2);
+				});
 	}
 
 	@Override
 	public void fight(Character character) {
+		System.out.println("You got attacked ...");
 		reduceHealth(character);
+		System.out.println("You: " + character);
 	}
 
 	@Override
@@ -71,6 +69,6 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 		int health = character.getHealth();
 		health--;
 		character.setHealth(health);
-		System.out.println("You lost health: " + character.getHealth());
+		System.out.println("You lost 1 point of health!");
 	}
 }

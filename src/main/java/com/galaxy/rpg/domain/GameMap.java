@@ -1,4 +1,4 @@
-package com.mycompany.app.domain;
+package com.galaxy.rpg.domain;
 
 public class GameMap {
 	int targetX = 4;

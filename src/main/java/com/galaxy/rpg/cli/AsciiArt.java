@@ -1,4 +1,4 @@
-package com.mycompany.app.cli;
+package com.galaxy.rpg.cli;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AsciiPicture {
+public class AsciiArt {
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	private static final String DARTH_VADER = "/darth-vader.txt";
@@ -24,28 +24,21 @@ public class AsciiPicture {
 	/** A map of path and pictures */
 	Map<String, String> asciiPictures = new HashMap<String, String>();
 
-	public AsciiPicture() {
+	public AsciiArt() {
 		asciiPictures.put("character", new String());
 		asciiPictures.put("attacked", new String());
 		asciiPictures.put("attacking", new String());
 		asciiPictures.put("target", new String());
 	}
 
-	public AsciiPicture(String character, String attacked, String attacking, String target) {
-		asciiPictures.put("character", character);
-		asciiPictures.put("attacked", attacked);
-		asciiPictures.put("attacking", attacking);
-		asciiPictures.put("target", target);
-	}
-
-	public AsciiPicture(int topic) {
-		if (topic == 1) {
+	public AsciiArt(int storylineId) {
+		if (storylineId == 1) {
 			asciiPictures.put("character", DARTH_VADER);
 			asciiPictures.put("attacked", X_WING);
 			asciiPictures.put("attacking", WALKER_ATTACKING);
 			asciiPictures.put("target", HOTH);
 		}
-		if (topic == 2) {
+		if (storylineId == 2) {
 			asciiPictures.put("character", R2D2_LEIA);
 			asciiPictures.put("attacked", TIE);
 			asciiPictures.put("attacking", FALCON);
