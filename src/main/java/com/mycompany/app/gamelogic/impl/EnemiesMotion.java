@@ -21,9 +21,8 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 
 	@Override
 	public void create() {
-		if (enemiesList != null) {
-			enemiesList = new ArrayList<Enemy>();
-		}
+		enemiesList = new ArrayList<Enemy>();
+
 		// TODO load the enemy positions from a data source
 		Enemy enemy1 = new Enemy(0, 2, 1, 0);
 		Enemy enemy2 = new Enemy(2, 2, 0, -1);
@@ -32,10 +31,6 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 		enemiesList.add(enemy1);
 		enemiesList.add(enemy2);
 		enemiesList.add(enemy3);
-
-		System.out.println("1> " + enemy1);
-		System.out.println("2> " + enemy2);
-		System.out.println("3> " + enemy1);
 	}
 
 	/**

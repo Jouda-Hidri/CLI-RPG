@@ -1,6 +1,14 @@
 package com.mycompany.app.domain;
 
-public class Enemy {
+import java.io.Serializable;
+
+public class Enemy implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	int x;
 	int y;
 	int directionX = 1;
