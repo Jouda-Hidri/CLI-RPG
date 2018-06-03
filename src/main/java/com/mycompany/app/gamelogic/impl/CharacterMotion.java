@@ -19,7 +19,7 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 	@Override
 	public void create() {
 		character = new Character();
-		System.out.println("new character created");
+		System.out.println("Character created");
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 			int y2 = character.getY() + character.getDirectionY();
 			character.setX(x2);
 			character.setY(y2);
-			System.out.println("Character status: " + character);
+			System.out.println("You: " + character);
 		}
 	}
 
@@ -50,11 +50,13 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 		int health = enemy.getHealth();
 		health--;
 		enemy.setHealth(health);
+		System.out.println("They lost health: " + enemy.getHealth());
 	}
 
 	public void gainExperience() {
 		int experience = character.getExperience();
 		experience++;
 		character.setExperience(experience);
+		System.out.println("You gained experience: " + character.getExperience());
 	}
 }

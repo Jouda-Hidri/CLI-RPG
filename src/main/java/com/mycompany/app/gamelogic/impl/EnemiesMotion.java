@@ -25,12 +25,17 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 			enemiesList = new ArrayList<Enemy>();
 		}
 		// TODO load the enemy positions from a data source
-		enemiesList.add(new Enemy(0, 2, 1, 0));
-		System.out.println("Enemy1 position: (0,2)");
-		enemiesList.add(new Enemy(2, 2, 0, -1));
-		System.out.println("Enemy2 position: (2,2)");
-		enemiesList.add(new Enemy(2, 0, 1, 0));
-		System.out.println("Enemy3 position: (2,0)");
+		Enemy enemy1 = new Enemy(0, 2, 1, 0);
+		Enemy enemy2 = new Enemy(2, 2, 0, -1);
+		Enemy enemy3 = new Enemy(2, 0, 1, 0);
+
+		enemiesList.add(enemy1);
+		enemiesList.add(enemy2);
+		enemiesList.add(enemy3);
+
+		System.out.println("1> " + enemy1);
+		System.out.println("2> " + enemy2);
+		System.out.println("3> " + enemy1);
 	}
 
 	/**
@@ -58,7 +63,7 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 			enemy.setDirectionX(directionX2);
 			enemy.setDirectionY(directionY2);
 
-			System.out.println("Enemy: " + enemy);
+			System.out.println("> " + enemy);
 		}
 	}
 
@@ -72,5 +77,6 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 		int health = character.getHealth();
 		health--;
 		character.setHealth(health);
+		System.out.println("You lost health: " + character.getHealth());
 	}
 }

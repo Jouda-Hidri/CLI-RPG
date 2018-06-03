@@ -11,6 +11,9 @@ public class GamePersistence {
 
 	private static String CHARACTER_FILE_PATH = "character.md";
 
+	// private String CHARACTER_FILE_PATH =
+	// this.getClass().getClassLoader().getResource("/character.md").getPath();
+
 	public static void save(Character character) {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;

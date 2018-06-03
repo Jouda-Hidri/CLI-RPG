@@ -1,22 +1,19 @@
 package com.mycompany.app.domain;
 
 public class GameMap {
-	int exitX = 4;
-	int exitY = 2;
-
-	public int getExitX() {
-		return exitX;
+	int targetX = 4;
+	int targetY = 2;
+	public int getTargetX() {
+		return targetX;
+	}
+	public void setTargetX(int targetX) {
+		this.targetX = targetX;
+	}
+	public int getTargetY() {
+		return targetY;
+	}
+	public void setTargetY(int targetY) {
+		this.targetY = targetY;
 	}
 
-	public void setExitX(int exitX) {
-		this.exitX = exitX;
-	}
-
-	public int getExitY() {
-		return exitY;
-	}
-
-	public void setExitY(int exitY) {
-		this.exitY = exitY;
-	}
 }
