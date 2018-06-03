@@ -27,49 +27,51 @@ public class App {
 	private static final String DOWN = "s";
 	private static final String FIGHT = "f";
 
-	private static final String DARTH_VADER = "/darth-vader.txt";
-	private static final String X_WING = "/x-wing.txt";
-	private static final String WALKER_ATTACKING = "/walker-attacking.txt";
-	private static final String HOTH = "/hoth-left.txt";
-
-	private static AsciiPicture asciiPicture = new AsciiPicture();
-	private static GameText gameText = new GameText();
-
-	private static Scanner scanner = new Scanner(System.in);
+	private static int topic = 0;
 
 	private static CharacterMotion characterMotion = new CharacterMotion();
 	private static EnemiesMotion enemiesMotion = new EnemiesMotion();
+	private static GameMap gameMap = new GameMap();
+	private static GameText gameText = new GameText();
+	private static AsciiPicture asciiPicture = new AsciiPicture();
+
+	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		GameMap gameMap = new GameMap();
-		createOrResume();
-		moveAndFight(gameMap);
+		initGame();
+		runGame();
 	}
 
 	/**
 	 * check if there is a saved game. Then ask the player if they want to resume or
 	 * start a new game. Otherwise the player can only start a new game
 	 */
-	private static void createOrResume() {
+	private static void initGame() {
 		// Per default the previous game will be loaded,
 		// unless no saved game were found
 		// and/or the player wants to start a new one
 		System.out.println("Loading the previous game ...");
-		Character character = GamePersistence.resumeCharacter();
-		List<Enemy> enemiesList = GamePersistence.resumeEnemiesList();
+		Character character = GamePersistence.loadCharacter();
+		List<Enemy> enemiesList = GamePersistence.loadEnemiesList();
+		topic = GamePersistence.getTopic();
+		gameText = new GameText(topic);
+		asciiPicture = new AsciiPicture(topic);
 		characterMotion.setCharacter(character);
 		enemiesMotion.setEnemiesList(enemiesList);
 
 		// Check if loading the game were successful
 		String input = new String();
-		if (character != null && enemiesList != null) {
+		if (character != null //
+				&& enemiesList != null //
+				&& gameText != null //
+				&& asciiPicture != null) {
 			// In case loading the game were successful,
 			// ask the player if they want to resume the game or start a new one
 			System.out.println("Previous game:");
 			System.out.println("You: " + character);
 			System.out.println(gameText.getEnemy() + "s: " + enemiesList);
 			while (!input.equals(START_NEW) && !input.equals(RESUME)) {
-				System.out.print("Start a new game [n] or resume [r]? ");
+				System.out.printf("Start a new game [%s] or resume [%s]? ", START_NEW, RESUME);
 				input = scanner.next();
 			}
 		} else {
@@ -77,21 +79,26 @@ public class App {
 			// the player can only start a new one
 			System.out.println("No game found!");
 			while (!input.equals(START_NEW)) {
-				System.out.print("Start a new game [n]? ");
+				System.out.printf("Start a new game [%s]? ", START_NEW);
 				input = scanner.next();
 			}
 		}
 
 		// In case the player would like to start a new game
 		if (input.equals(START_NEW)) {
-			// TODO ask the player to choose a topic
-			gameText.setEnemy("Rebel");
-			gameText.setTarget("Hoth");
-			gameText.setIntroMessage(
-					" Hey Dath Vader! \n We found out where the rebels are hiding! \n You should go to the Hoth ... ");
-			gameText.setLooseMessage("Darth Vader died! \n GAME OVER!");
-			gameText.setWinMessage("You reached the Hoth! \n YOU WON!!!");
-
+			input = new String();
+			while (!input.equals("1") && !input.equals("2")) {
+				System.out.print("Choose a character: Darth Vader [1] or Luke Skywalker [2] ");
+				input = scanner.next();
+			}
+			if (input.equals("1")) {
+				gameText = new GameText(1);
+				asciiPicture = new AsciiPicture(1);
+			}
+			if (input.equals("2")) {
+				gameText = new GameText(2);
+				asciiPicture = new AsciiPicture(2);
+			}
 			// create character
 			characterMotion.create();
 			character = characterMotion.getCharacter();
@@ -99,44 +106,46 @@ public class App {
 			enemiesMotion.create();
 			enemiesList = enemiesMotion.getEnemiesList();
 
-			System.out.println("-------------------------------------------------------------------------");
-			asciiPicture.display(DARTH_VADER);
+			asciiPicture.display("character");
 			System.out.println("-------------------------------------------------------------------------");
 			System.out.println(gameText.getIntroMessage());
 			System.out.println("-------------------------------------------------------------------------");
 			System.out.println("You: " + character);
 			System.out.println(gameText.getEnemy() + "s: " + enemiesList);
 		}
-		System.out.println();
-		System.out.println();
 	}
 
 	/**
-	 * The player can be exploring the map until they reach the exit point or they
-	 * get the same position as an enemy. In this case the enemy would start
-	 * attacking. The player can also fight. The fight will end when the enemy or
-	 * the player dies. In case the enemy dies, the player can keep on exploring. In
-	 * case the player dies: Game Over!
+	 * The player can be exploring the map until they reach the target point or they
+	 * get the same position as an enemy (collision). In this case the enemy would
+	 * start attacking. The player can also fight. The fight will end when the enemy
+	 * or the player dies. In case the enemy dies, the player can keep on exploring.
+	 * In case the player dies: Game Over!
 	 */
-	private static void moveAndFight(GameMap gameMap) {
+	private static void runGame() {
 		Character character = characterMotion.getCharacter();
 		List<Enemy> enemiesList = enemiesMotion.getEnemiesList();
-		if (character != null) {
-			while (character.getX() != gameMap.getTargetX() || character.getY() != gameMap.getTargetY()) {
-
-				// display menu
+		int targetX = gameMap.getTargetX();
+		int targetY = gameMap.getTargetY();
+		if (character == null) {
+			System.out.println("An error occured!");
+		} else {
+			while (character.getX() != targetX || character.getY() != targetY) {
+				// display possible actions
 				System.out.println("-------------------------------------------------------------------------");
-				System.out.print("Explore (up [w]  -down [s]  -left [s]  -right [d])");
+				System.out.printf("Explore (up [%s]  -down [%s]  -left [%s]  -right [%s])", UP, DOWN, LEFT, RIGHT);
 				System.out.print("  -  ");
-				System.out.print("Save and quit [q] ");
+				System.out.printf("Save and quit [%s] ", QUIT);
 				String input = scanner.next();
+
+				// quit
 				if (input.equals(QUIT)) {
-					GamePersistence.save(character);
-					GamePersistence.save(enemiesList);
+					GamePersistence.save(topic, character, enemiesList);
 					break;
 				}
 				System.out.println("-------------------------------------------------------------------------");
-				// move
+
+				// character moves
 				int directionX = 0;
 				int directionY = 0;
 				if (input.equals(LEFT)) {
@@ -154,29 +163,32 @@ public class App {
 				character.setDirectionX(directionX);
 				character.setDirectionY(directionY);
 				characterMotion.move();
+
+				// display target position
+				System.out.println(gameText.getTarget() + ": position (" + gameMap.getTargetX() + ","
+						+ gameMap.getTargetY() + ")");
+
+				// enemies move
 				System.out.println(gameText.getEnemy() + "s");
 				enemiesMotion.move();
-				// fight in case there is an attacking enemy
+
+				// check if there is a collision
 				Enemy attackingEnemy = checkCollision();
 				if (attackingEnemy != null) {
+
+					// fight in case there is a collision
 					fight(attackingEnemy);
 					if (character.getHealth() <= 0) {
 						// it is possible here to extend the game: life -- and restart
 						break;
 					}
 				}
-				System.out.println(gameText.getTarget() + ": position (" + gameMap.getTargetX() + ","
-						+ gameMap.getTargetY() + ")");
 			}
-			if (character.getX() == gameMap.getTargetX() //
-					&& character.getY() == gameMap.getTargetY()) {
-
-				asciiPicture.display(HOTH);
-
+			// win in case character reaches the target
+			if (character.getX() == targetX && character.getY() == targetY) {
+				asciiPicture.display("target");
 				System.out.println(gameText.getWinMessage());
 			}
-		} else {
-			System.out.println("An error occured!");
 		}
 	}
 
@@ -197,32 +209,36 @@ public class App {
 	private static void fight(Enemy attackingEnemy) {
 		Character character = characterMotion.getCharacter();
 		if (attackingEnemy != null) {
-			while (attackingEnemy.getHealth() > 0) {
-				// enemy attacks; then check character health
-				asciiPicture.display(X_WING);
+			while (attackingEnemy.getHealth() > 0 && //
+					character.getHealth() > 0) {
 
-				System.out.println("You are being attacked ...");
+				// enemy attacks
+				asciiPicture.display("attacked");
+				System.out.println("You got attacked ...");
 				enemiesMotion.fight(character);
-				if (character.getHealth() <= 0) {
-					System.out.println(gameText.getLooseMessage());
-					break;
-				}
+
 				System.out.println("You: " + character);
-				// character attacks; then check enemy health
-				System.out.print("You can fight [f] ");
+
+				// character attacks
+				System.out.printf("You can fight [%s] ", FIGHT);
 				String input = scanner.next();
 				if (input.equals(FIGHT)) {
-
-					asciiPicture.display(WALKER_ATTACKING);
-
+					asciiPicture.display("attacking");
 					characterMotion.fight(attackingEnemy);
 				}
+
 				System.out.println(gameText.getEnemy() + ": " + attackingEnemy);
+
 			}
 
 			if ((attackingEnemy.getHealth() <= 0)) {
 				System.out.println(gameText.getEnemy() + " died \n");
-				System.out.println("You: " + character);
+			}
+
+			System.out.println("You: " + character);
+
+			if (character.getHealth() <= 0) {
+				System.out.println(gameText.getLooseMessage());
 			}
 		}
 	}

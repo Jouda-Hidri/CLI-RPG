@@ -1,6 +1,13 @@
 package com.mycompany.app.cli;
 
-public class GameText {
+import java.io.Serializable;
+
+public class GameText implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	String introMessage;
 	String winMessage;
@@ -23,6 +30,25 @@ public class GameText {
 		this.enemy = enemy;
 		this.target = target;
 
+	}
+
+	public GameText(int topic) {
+		if (topic == 1) {
+			introMessage = new String(
+					" Hey Dath Vader! \n We found out where the rebels are hiding! \n You should go to the Hoth ... ");
+			winMessage = new String("You reached the Hoth! \n YOU WON!!!");
+			looseMessage = new String("Darth Vader died! \n GAME OVER!");
+			enemy = new String("Rebel");
+			target = new String("Hoth");
+		}
+		if (topic == 2) {
+			introMessage = new String(
+					" Hey Luke! \n Your sister needs your help! \n You should go to her! \n Be careful on the way, there is a lot of TIE fighters ... ");
+			winMessage = new String("You saved Leia! \n YOU WON!!!");
+			looseMessage = new String("Luke died! \n GAME OVER!");
+			enemy = new String("TIE fighter");
+			target = new String("Leia");
+		}
 	}
 
 	public String getIntroMessage() {

@@ -19,7 +19,6 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 	@Override
 	public void create() {
 		character = new Character();
-		System.out.println("Character created");
 	}
 
 	@Override
@@ -40,6 +39,7 @@ public class CharacterMotion implements PlayerMotion<Enemy> {
 		if (attackingEnemy != null) {
 			reduceHealth(attackingEnemy);
 			if (attackingEnemy.getHealth() == 0) {
+				System.out.println("They died");
 				gainExperience();
 			}
 		}

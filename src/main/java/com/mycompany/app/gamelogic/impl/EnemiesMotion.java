@@ -23,7 +23,6 @@ public class EnemiesMotion implements PlayerMotion<Character> {
 	public void create() {
 		enemiesList = new ArrayList<Enemy>();
 
-		// TODO load the enemy positions from a data source
 		Enemy enemy1 = new Enemy(0, 2, 1, 0);
 		Enemy enemy2 = new Enemy(2, 2, 0, -1);
 		Enemy enemy3 = new Enemy(2, 0, 1, 0);

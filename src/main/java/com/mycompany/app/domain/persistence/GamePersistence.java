@@ -13,6 +13,23 @@ public class GamePersistence {
 
 	private static String CHARACTER_FILE_PATH = "character.md";
 	private static String ENEMIES_FILE_PATH = "enemies.md";
+	private static String TOPIC_FILE_PATH = "topic.md";
+
+	public static void save(int topicId, Character character, List<Enemy> enemiesList) {
+		save(topicId);
+		save(character);
+		save(enemiesList);
+	}
+
+	public static void save(int topicId) {
+		try {
+			FileOutputStream out = new FileOutputStream(TOPIC_FILE_PATH);
+			ObjectOutputStream oos = new ObjectOutputStream(out);
+			oos.writeObject(topicId);
+			oos.close();
+		} catch (Exception e) {
+		}
+	}
 
 	public static void save(Character character) {
 		FileOutputStream fos = null;
@@ -26,7 +43,29 @@ public class GamePersistence {
 		}
 	}
 
-	public static Character resumeCharacter() {
+	public static void save(List<Enemy> enemiesList) {
+		try {
+			FileOutputStream out = new FileOutputStream(ENEMIES_FILE_PATH);
+			ObjectOutputStream oos = new ObjectOutputStream(out);
+			oos.writeObject(enemiesList);
+			oos.close();
+		} catch (Exception e) {
+		}
+	}
+
+	public static int getTopic() {
+		int topic = 0;
+		try {
+			FileInputStream in = new FileInputStream(TOPIC_FILE_PATH);
+			ObjectInputStream ois = new ObjectInputStream(in);
+			topic = (Integer) (ois.readObject());
+			in.close();
+		} catch (Exception e) {
+		}
+		return topic;
+	}
+
+	public static Character loadCharacter() {
 		try {
 			FileInputStream fis = new FileInputStream(CHARACTER_FILE_PATH);
 			ObjectInputStream in = new ObjectInputStream(fis);
@@ -39,18 +78,8 @@ public class GamePersistence {
 		return null;
 	}
 
-	public static void save(List<Enemy> enemiesList) {
-		try {
-			FileOutputStream out = new FileOutputStream(ENEMIES_FILE_PATH);
-			ObjectOutputStream oos = new ObjectOutputStream(out);
-			oos.writeObject(enemiesList);
-			oos.close();
-		} catch (Exception e) {
-		}
-	}
-
 	@SuppressWarnings("unchecked")
-	public static List<Enemy> resumeEnemiesList() {
+	public static List<Enemy> loadEnemiesList() {
 		List<Enemy> enemiesList = null;
 		try {
 			FileInputStream in = new FileInputStream(ENEMIES_FILE_PATH);
