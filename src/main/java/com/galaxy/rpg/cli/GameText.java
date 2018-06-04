@@ -26,8 +26,8 @@ public class GameText implements Serializable {
 	public GameText(int storylineId) {
 		if (storylineId == 1) {
 			introMessage = new String(
-					" Hey Dath Vader! \n We found out where the rebels are hiding! \n You should go to the Hoth ... ");
-			winMessage = new String("You reached the Hoth! \n YOU WON!!!");
+					" Hey Dath Vader! \n We found out where the rebels are hiding! \n You should go to Hoth ... ");
+			winMessage = new String("You devastated the Rebel base! \n YOU WON!!!");
 			loseMessage = new String("Darth Vader died! \n GAME OVER!");
 			enemy = new String("Rebel");
 			target = new String("Hoth");
